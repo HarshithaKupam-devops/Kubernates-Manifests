@@ -82,7 +82,7 @@ spec:
       serviceAccountName: nfs-pod-provisioner-sa # name of service account created in rbac.yaml
       containers:
         - name: nfs-pod-provisioner
-          image: rkevin/nfs-subdir-external-provisioner:fix-k8s-1.20
+          image: rkevin/nfs-subdir-external-provisioner:fix-k8s-1.20     #image to provision volumes dynamically
           volumeMounts:
             - name: nfs-provisioner-v
               mountPath: /persistentvolumes
@@ -104,7 +104,7 @@ kind: StorageClass
 metadata:
   name: nfs-storageclass # IMPORTANT pvc needs to mention this name
   annotations:
-    storageclass.kubernetes.io/is-default-class: "true"
-provisioner: nfs-provisioner # name can be anything
+    storageclass.kubernetes.io/is-default-class: "true"          # marking it as default storage class
+provisioner: nfs-provisioner # name can be anything. creating storage class with this provisioner
 parameters:
   archiveOnDelete: "false"
